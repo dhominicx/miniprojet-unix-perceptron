@@ -7,8 +7,8 @@
 CC = gcc
 
 # Options de compilation
-# -Wall -Wextra : Affiche tous les avertissements (très important)
-# -g            : Ajoute des infos de débogage (utile pour gdb/valgrind)
+# -Wall -Wextra
+# -g            : Ajoute des infos de débogage
 CFLAGS = -Wall -Wextra -g
 
 # Bibliothèques à lier (Linker flags)
@@ -23,7 +23,7 @@ OBJS = main.o processus.o ipc_tools.o reseau.o
 
 # --- RÈGLES DE COMPILATION ---
 
-# Règle par défaut (ce qui se lance quand on tape juste 'make')
+# Règle par défaut
 all: $(EXE)
 
 # Édition de liens (Linking): Crée l'exécutable à partir des objets
