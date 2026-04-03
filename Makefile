@@ -6,53 +6,54 @@
 # Compilateur
 CC = gcc
 
-# Options de compilation
-# -Wall -Wextra : Affiche tous les avertissements (très important)
-# -g            : Ajoute des infos de débogage (utile pour gdb/valgrind)
-CFLAGS = -Wall -Wextra -g
+# Dossiers
+SRC_DIR = src
+INC_DIR = include
 
-# Bibliothèques à lier (Linker flags)
-# -lm : Bibliothèque mathématique (nécessaire pour exp, tanh, sqrt)
+# Options de compilation
+# -Wall -Wextra : avertissements
+# -g            : debug
+# -I$(INC_DIR)  : chemin des headers
+CFLAGS = -Wall -Wextra -g -I$(INC_DIR)
+
+# Bibliothèques à lier
 LIBS = -lm
 
 # Nom de l'exécutable final
 EXE = seance3
 
-# Liste des fichiers objets nécessaires
-OBJS = main.o processus.o ipc_tools.o reseau.o
+# Fichiers sources
+SRCS = $(SRC_DIR)/main.c \
+       $(SRC_DIR)/processus.c \
+       $(SRC_DIR)/ipc_tools.c \
+       $(SRC_DIR)/reseau.c
 
-# --- RÈGLES DE COMPILATION ---
+# Fichiers objets
+OBJS = $(SRCS:.c=.o)
 
-# Règle par défaut (ce qui se lance quand on tape juste 'make')
+# RÈGLES DE COMPILATION
+
+# Règle par défaut
 all: $(EXE)
 
-# Édition de liens (Linking): Crée l'exécutable à partir des objets
+# Édition de liens
 $(EXE): $(OBJS)
 	@echo "Création de l'exécutable $(EXE)..."
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJS) $(LIBS)
 
-# --- COMPILATION DES FICHIERS SOURCES ---
+# Compilation générique des .c en .o
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Compile main.c
-main.o: main.c config.h processus.h
-	$(CC) $(CFLAGS) -c main.c
-
-# Compile processus.c (dépend de reseau.h et ipc_tools.h)
-processus.o: processus.c config.h processus.h reseau.h ipc_tools.h
-	$(CC) $(CFLAGS) -c processus.c
-
-# Compile ipc_tools.c
-ipc_tools.o: ipc_tools.c config.h ipc_tools.h
-	$(CC) $(CFLAGS) -c ipc_tools.c
-
-# Compile reseau.c
-reseau.o: reseau.c config.h reseau.h
-	$(CC) $(CFLAGS) -c reseau.c
-
-# Supprime les fichiers temporaires (.o) et l'exécutable
+# Nettoyage
 clean:
 	@echo "Nettoyage des fichiers compilés..."
-	rm -f *.o $(EXE)
+	rm -f $(SRC_DIR)/*.o $(EXE)
 
-# Pour éviter des conflits avec des fichiers qui s'appelleraient 'clean' ou 'all'
-.PHONY: all clean
+# Recompilation complète
+fclean: clean
+
+re: fclean all
+
+# Pour éviter les conflits
+.PHONY: all clean fclean re
