@@ -11,10 +11,9 @@ SRC_DIR = src
 INC_DIR = include
 
 # Options de compilation
-# -Wall -Wextra : avertissements
-# -g            : debug
-# -I$(INC_DIR)  : chemin des headers
-CFLAGS = -Wall -Wextra -g -I$(INC_DIR)
+# -Wall -Wextra
+# -g            : Ajoute des infos de débogage
+CFLAGS = -Wall -Wextra -g
 
 # Bibliothèques à lier
 LIBS = -lm
@@ -55,5 +54,5 @@ fclean: clean
 
 re: fclean all
 
-# Pour éviter les conflits
-.PHONY: all clean fclean re
+# Pour éviter des conflits avec des fichiers qui s'appelleraient 'clean' ou 'all'
+.PHONY: all clean
