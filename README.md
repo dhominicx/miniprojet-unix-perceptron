@@ -44,13 +44,15 @@ Technologies et concepts utilisés
         reseau.c
 ```
 
-## Exécution
+## Building
 
 ```
 git clone git@github.com:dhominicx/miniprojet-unix-perceptron.git
 cd miniprojet-unix-perceptron
 make
 ```
+
+## Exécution
 
 ```
 ./seance3
