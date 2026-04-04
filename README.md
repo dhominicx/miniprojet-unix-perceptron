@@ -1,5 +1,13 @@
 # Mini Projet - UNIX - Perceptron
 
+Projet proposé par M. Frederic ROUSSEAU
+
+<p align="center">
+  <img width="475" height="276" alt="perceptron" src="https://github.com/user-attachments/assets/4bb3a4a6-4149-4c82-af22-e077359403a6" />
+</p>
+
+
+
 ## Organisation
 
 ```
